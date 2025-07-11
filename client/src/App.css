@@ -2,6 +2,7 @@
 
 .active {
   color: lightcoral;
+  @apply shadow-2xs shadow-orange-50;
 }
 
 .form-container {
