@@ -25,8 +25,8 @@ const Footer = () => {
                 <div className="socials text-center">
                     <h6 className="mb-3 text-xl font-bold">Socials</h6>
                     <ul className="font-light">
-                        <li className="mb-2"><Link>Instagram</Link></li>
-                        <li className="mb-2"><Link>X</Link></li>
+                        <li className="mb-2"><Link to='https://www.instagram.com/rahul_kongara_/' target='_blank'>Instagram</Link></li>
+                        <li className="mb-2"><Link to={`https://www.x.com/rahulkongara02/`}>X</Link></li>
                         <li className="mb-2"><Link>Discord</Link></li>
                     </ul>
                 </div>
