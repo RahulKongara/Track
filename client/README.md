@@ -1,6 +1,6 @@
 # Fitness Tracker Client
 
-This is the client-side application for the Fitness Tracker project. It provides a user interface for tracking workouts, exercises, and fitness progress.
+This is the client-side application for the Fitness Tracker. It provides a user interface for tracking workouts, exercises, and fitness progress.
 
 ## Features
 
