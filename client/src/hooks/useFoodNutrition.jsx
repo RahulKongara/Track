@@ -8,29 +8,24 @@ const useFoodNutrition = (query, type = 'common') => {
     const abortControllerRef = useRef(null);
 
     useEffect(() => {
-        // Cancel any existing request
         if (abortControllerRef.current) {
             abortControllerRef.current.abort();
         }
 
-        // Reset states
         setError(null);
         setData(null);
 
-        // Don't fetch if query is empty
         if (!query || query.trim().length === 0) {
             setLoading(false);
             return;
         }
 
-        // Fetch data based on type
         if (type === 'common') {
             fetchCommonFood(query.trim());
         } else if (type === 'branded') {
             fetchBrandedFood(query.trim());
         }
 
-        // Cleanup function
         return () => {
             if (abortControllerRef.current) {
                 abortControllerRef.current.abort();
@@ -89,7 +84,6 @@ const useFoodNutrition = (query, type = 'common') => {
         setError(null);
 
         try {
-            // Step 1: Get nix_item_id from instant search
             const searchResponse = await fetch(
                 `https://trackapi.nutritionix.com/v2/search/instant?query=${encodeURIComponent(foodName)}`,
                 {
@@ -113,14 +107,12 @@ const useFoodNutrition = (query, type = 'common') => {
 
             const searchResult = await searchResponse.json();
 
-            // Get the first branded item
             if (!searchResult.branded || searchResult.branded.length === 0) {
                 throw new Error('No branded items found');
             }
 
             const nixItemId = searchResult.branded[0].nix_item_id;
 
-            // Step 2: Get detailed branded item info
             const itemResponse = await fetch(
                 `https://trackapi.nutritionix.com/v2/search/item?nix_item_id=${nixItemId}`,
                 {
@@ -156,7 +148,6 @@ const useFoodNutrition = (query, type = 'common') => {
         }
     };
 
-    // Cleanup on unmount
     useEffect(() => {
         return () => {
             if (abortControllerRef.current) {

@@ -26,7 +26,6 @@ const Food = () => {
 
 	return (
 		<div className="mt-[100px] px-4">
-			{/* Search Inputs */}
 			<div className="search-container mb-6 flex flex-col items-center gap-4">
 				<div className="w-full max-w-md">
 					<input
@@ -89,7 +88,6 @@ const Food = () => {
 				</div>
 			)}
 
-			{/* Food Card */}
 			{showCard && (
 				<div className="flex justify-center">
 					<FoodCard

@@ -2,26 +2,23 @@ import { useState } from 'react';
 import useFoodNutrition from '../hooks/useFoodNutrition';
 
 const FoodCard = ({ foodName, servingSize }) => {
-    const [foodType, setFoodType] = useState('common'); // 'common' or 'branded'
+    const [foodType, setFoodType] = useState('common');
 
-    // Construct query based on food type
     const query = foodType === 'common'
         ? `${servingSize} ${foodName}`.trim()
         : foodName;
 
     const { data, loading, error } = useFoodNutrition(query, foodType);
 
-    // Helper function to get nutrient value by attribute_id
+
     const getNutrientValue = (nutrients, attributeId) => {
         const nutrient = nutrients?.find(n => n.attr_id === attributeId);
         return nutrient ? nutrient.value : 'N/A';
     };
 
-    // Helper function to render nutrition data
     const renderNutritionData = () => {
         if (!data) return null;
 
-        // Get the first food item from the response
         const foodItem = data.foods?.[0] || data;
         if (!foodItem) return null;
 
@@ -36,7 +33,7 @@ const FoodCard = ({ foodName, servingSize }) => {
             full_nutrients
         } = foodItem;
 
-        // Key nutrients to display (Nutritionix attribute IDs)
+
         const keyNutrients = [
             { id: 291, name: 'Fiber', unit: 'g' },
             { id: 269, name: 'Sugar', unit: 'g' },
@@ -99,11 +96,9 @@ const FoodCard = ({ foodName, servingSize }) => {
 
     return (
         <div className="card-1 w-[400px] h-auto min-h-[400px] rounded-lg shadow-md shadow-orange-50 flex flex-col bg-gray-800">
-            {/* Header with Toggle */}
             <div className="flex justify-between items-center mt-3 mb-3 px-3">
                 <h1 className="card-title text-lg text-gray-100">Nutrition Info</h1>
 
-                {/* Food Type Toggle */}
                 <div className="flex bg-gray-700 rounded-lg p-1">
                     <button
                         onClick={() => setFoodType('common')}
@@ -126,7 +121,6 @@ const FoodCard = ({ foodName, servingSize }) => {
                 </div>
             </div>
 
-            {/* Content */}
             <div className="flex-1 px-3 pb-3">
                 {loading && (
                     <div className="flex items-center justify-center h-32">
