@@ -50,7 +50,7 @@ const useWorkout = (section) => {
     return (
         <>
             {workouts.map(workout => (
-                <Card key={workout.id} name={workout.name} description={workout.description} />
+                <Card key={workout.id} name={workout.name} description={workout.description} img={workout.image_url} type={workout.type} />
             ))}
         </>
     )
