@@ -95,8 +95,8 @@ const useFoodNutrition = (query, type = 'common') => {
                 {
                     method: 'GET',
                     headers: {
-                        'x-app-id': import.meta.env.VITE_NIX_APP_ID || 'c52fc6f4',
-                        'x-app-key': import.meta.env.VITE_NIX_APP_KEY || '3ea36eade3aebb138e3b555906ed7215',
+                        'x-app-id': import.meta.env.VITE_NIX_APP_ID,
+                        'x-app-key': import.meta.env.VITE_NIX_APP_KEY,
                         'Content-Type': 'application/json',
                     },
                     signal: abortControllerRef.current.signal,
@@ -126,8 +126,8 @@ const useFoodNutrition = (query, type = 'common') => {
                 {
                     method: 'GET',
                     headers: {
-                        'x-app-id': import.meta.env.VITE_NIX_APP_ID || 'c52fc6f4',
-                        'x-app-key': import.meta.env.VITE_NIX_APP_KEY || '3ea36eade3aebb138e3b555906ed7215',
+                        'x-app-id': import.meta.env.VITE_NIX_APP_ID,
+                        'x-app-key': import.meta.env.VITE_NIX_APP_KEY,
                         'Content-Type': 'application/json',
                     },
                     signal: abortControllerRef.current.signal,
