@@ -15,6 +15,7 @@ const Strength = lazy(() => import('./pages/subpages/Strength'));
 const Calisthenics = lazy(() => import('./pages/subpages/Calisthenics'));
 const HomeWorkouts = lazy(() => import('./pages/subpages/HomeWorkouts'));
 
+
 function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(

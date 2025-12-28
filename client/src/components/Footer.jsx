@@ -1,5 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "@/hooks/AuthContext";
 const Footer = () => {
+    const { isLoggedIn } = useAuth();
     return (
         <div className="mt-4 p-4 bg-gray-950">
             <div className="footer flex justify-around">
@@ -18,7 +20,9 @@ const Footer = () => {
                         <li><NavLink to='/'>Home</NavLink></li>
                         <li><NavLink to='/workouts'>Workouts</NavLink></li>
                         <li><NavLink to='/food'>Food</NavLink></li>
-                        <li><NavLink to='/profile'>Profile</NavLink></li>
+                        {!isLoggedIn ? <li><NavLink to='/login'>Login</NavLink></li>
+                            : <li><NavLink to='/profile'>Profile</NavLink></li>
+                        }
                         <li><NavLink to='/posts'>Posts</NavLink></li>
                     </ul>
                 </div>

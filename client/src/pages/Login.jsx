@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "@/hooks/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
 
@@ -6,8 +7,9 @@ const Login = () => {
     const [isRightPanelActive, setIsRightPanelActive] = useState(false);
     const [loginData, setLoginData] = useState({ email: '', password: '' });
     const [signUpData, setSignUpData] = useState({ name: '', email: '', password: '' });
-    const [loggedIn, setLoggedIn] = useState(false)
+    const { login } = useAuth();
     const navigate = useNavigate();
+    
 
     const handleSignUpClick = () => {
         setIsRightPanelActive(true);
@@ -33,8 +35,7 @@ const Login = () => {
                 return;
             }
 
-            localStorage.setItem("token", data.token);
-            setLoggedIn(true);
+            login(data.user, data.token);
             navigate('/profile', { replace: true });
         } catch (error) {
             console.error('Error:', error);

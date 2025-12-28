@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom"
-
+import { useAuth } from "@/hooks/AuthContext"
 const Header = () => {
+    const { isLoggedIn, logout } = useAuth();
     return (
         <div className="flex justify-between items-center mt-2">
             <div className="logo">
@@ -12,8 +13,20 @@ const Header = () => {
                 <li className="ml-8"><NavLink to='/'>Home</NavLink></li>
                 <li className="ml-8"><NavLink to='/workouts'>Workouts</NavLink></li>
                 <li className="ml-8"><NavLink to='/food'>Food</NavLink></li>
-                <li className="ml-8"><NavLink to='/profile'>Profile</NavLink></li>
+                
+                {!isLoggedIn ? <li className="ml-8"><NavLink to='/login'>Login</NavLink></li>
+                    : <li className="ml-8"><NavLink to='/profile'>Profile</NavLink></li>
+                }
                 <li className="ml-8"><NavLink to='/posts'>Posts</NavLink></li>
+                {
+                    isLoggedIn && (
+                        <li className="ml-8">
+                            <NavLink onClick={logout} to='/login'>
+                                Logout
+                            </NavLink>
+                        </li>
+                    )
+                }
             </ul>
         </div>
     )

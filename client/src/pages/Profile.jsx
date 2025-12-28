@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import EditForm from '@/components/EditForm';
 import { FaPen } from 'react-icons/fa';
+import { useAuth } from '@/hooks/AuthContext';
+
 import { 
 	Dialog,
     DialogClose,
@@ -14,6 +16,7 @@ import { Button } from "@/components/ui/button";
 const Profile = () => {
 	const navigate = useNavigate();
 	const [user, setUser] = useState("");
+	const { isLoggedIn } = useAuth()
 	// Fetching data from the backend hydrating the frontend with data
 	useEffect(() => {
 		console.log("Reload triggered");
@@ -42,9 +45,14 @@ const Profile = () => {
 	}, []);
 
 	const [modalOpen, setModalOpen] = useState(false);
-
-
-
+	const createdDate = user.createdAt 
+		? new Date(user.createdAt).toLocaleDateString('en-US', { 
+			year: 'numeric', 
+			month: 'long', 
+			day: 'numeric' 
+		})
+		: 'N/A';
+		
 	return (
 		<div className='flex flex-col justify-center items-center'>
 			<Dialog open={modalOpen} onOpenChange={setModalOpen}>
@@ -65,7 +73,7 @@ const Profile = () => {
 						<h3>{user.name}</h3> <p>{user.level || 'Beginner (default)'}</p>
 					</div>
 					<div className="flex">
-						<p>{user.email} | {user.createdAt}</p>
+						<p>{user.email} | {createdDate}</p>
 					</div>
 				</div>
 			</div>

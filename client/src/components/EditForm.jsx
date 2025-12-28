@@ -41,6 +41,7 @@ import { Input } from "./ui/input";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { toast } from "sonner";
 import { ScrollArea } from "./ui/scroll-area";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
     name: z.string().min(3, "Come on!!! man is yo name really 3 frickking letters?").max(15, "Yo! tell yo parents to change yo name yo!"),
@@ -62,7 +63,7 @@ const levels = [
 
 
 const EditForm = ({ user, onSuccess }) => {
-
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -85,15 +86,32 @@ const EditForm = ({ user, onSuccess }) => {
             return;
         }
 
-        const res = await fetch('/api/editProfile', {
-            method: 'PUT', 
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-            body: {
-                
+        try {
+            const res = await fetch('/api/users/editProfile', {
+                method: 'PUT', 
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    ...data,
+                    dob: data.dob ? `${data.dob.getFullYear()}-${String(data.dob.getMonth() + 1).padStart(2, '0')}-${String(data.dob.getDate()).padStart(2, '0')}` : undefined
+                }),
+            });
+
+            if (!res.ok) {
+                console.error('Update failed:', data);
+                toast.error("Update Failed");
+                return;
             }
-        })
+
+            navigate('/profile');
+            toast.success("Update successfull")
+        } catch (err) {
+            console.error("Error:", err);
+            toast.error('Failed to connect to server');
+        }
+
         onSuccess?.();
     }
 
